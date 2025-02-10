@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!
+{% endblock %}
+
+{% block body %}
+	<style></style>
+	<h1>Bienvenue sur saltnet</h1>
+	<h2>Ajoute ton grain de sel… ou verse la salière entière.</h2>
+	<h3>Inscrivez-vous</h3>
+	<div class="">
+		<ul>
+			{% if app.user %}
+				{{ app.user.username }}
+				<a href="{{ path('logout') }}" class="text-decoration-none"></a>Déconnexion
+			{% else %}
+				<button type="button" >
+					<a href="{{ path('register') }}" class="text-decoration-none">S'inscrire</a>
+				</button>
+				<p>En vous inscrivant, vous acceptez les Conditions
+										 d’utilisation et de la Politique de confidentialité,
+										notamment l’utilisation des cookies.</p>
+				<h4>Vous avez déja un compte ?</h4>
+				<button type="button">
+					<a href="{{ path('login') }}" class="text-decoration-none">Se connecter</a>
+				</button>
+
+			{% endif %}
+		</ul>
+	</div>
+
+{% endblock %}

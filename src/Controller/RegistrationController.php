@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    #[Route('/register', name: 'register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -28,6 +28,9 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
+            // ajout de la ligne setCreatedAt pour la date et l'heure de création du nouvel user.
+            $user->setCreatedAt(new \DateTimeImmutable());
+            
             $entityManager->persist($user);
             $entityManager->flush();
 
