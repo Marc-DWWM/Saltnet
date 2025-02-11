@@ -4,29 +4,30 @@
 {% endblock %}
 
 {% block body %}
-	<style></style>
-	<h1>Bienvenue sur saltnet</h1>
-	<h2>Ajoute ton grain de sel… ou verse la salière entière.</h2>
-	<h3>Inscrivez-vous</h3>
-	<div class="">
-		<ul>
+	<div class="flex flex-col items-center space-y-4">
+		<img src="{{ asset('images/logo-mobile.jpg') }}" alt="Logo mobile">
+		<h1 class="text-[32px] pb-4">Bienvenue sur saltnet</h1>
+		<h2 class="text-[20px] pl-14 pr-14 text-center pb-8">Ajoute ton grain de sel… ou verse la salière entière.</h2>
+		<h3 class="text-[16px] pb-8">Inscrivez-vous</h3>
+	</div>
+	<div>
+		<div class="flex flex-col items-center space-y-4">
 			{% if app.user %}
 				{{ app.user.username }}
-				<a href="{{ path('logout') }}" class="text-decoration-none"></a>Déconnexion
+				<a href="{{ path('logout') }}" class="text-white">Déconnexion</a>
 			{% else %}
-				<button type="button" >
-					<a href="{{ path('register') }}" class="text-decoration-none">S'inscrire</a>
-				</button>
-				<p>En vous inscrivant, vous acceptez les Conditions
-										 d’utilisation et de la Politique de confidentialité,
-										notamment l’utilisation des cookies.</p>
-				<h4>Vous avez déja un compte ?</h4>
-				<button type="button">
-					<a href="{{ path('login') }}" class="text-decoration-none">Se connecter</a>
-				</button>
+
+				<a href="{{ path('register') }}" class="w-24 text-white text-[12px] text-center py-1 rounded-full">S'inscrire</a>
+
+
+				<p class="text-[10px] w-60 text-center pt-4">En vous inscrivant, vous acceptez les Conditions d’utilisation et de la Politique de confidentialité, notamment l’utilisation des cookies.</p>
+				<h4 class="text-[12px] pb-5">Vous avez déja un compte ?</h4>
+
+				<a href="{{ path('login') }}" class="w-24 text-white text-[12px] text-center py-1 rounded-full">Se connecter</a>
+
 
 			{% endif %}
-		</ul>
+		</div>
 	</div>
 
 {% endblock %}

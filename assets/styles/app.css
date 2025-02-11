@@ -1,3 +1,20 @@
 body {
     background-color: #1A1A2E;
 }
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
+p {
+    font-family: 'Lato', sans-serif;
+    color: white;
+}
+a {
+    background-color: #FF1B1C;
+    opacity: 75%;
+}
+a:hover {
+    background-color: #FF1B1C;
+    opacity: 100%;
+}
