@@ -1,11 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Password Reset Email Sent{% endblock %}
+{% block title %}Password Reset Email Sent
+{% endblock %}
 
 {% block body %}
-    <p>
-        If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+	<div class="flex flex-col items-center space-y-4">
+		<img src="{{ asset('images/logo-mobile.jpg') }}" alt="Logo mobile">
+		<h1 class="text-[15px] pl-14 pr-14 pb-5 text-center">Ajoute ton grain de sel… ou verse la salière entière.</h1>
+	</div>
+	<p class="text-center text-[12px] pl-8 pr-8 pb-6">
+		S'il existe un compte correspondant à votre adresse e-mail, un e-mail vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe.
+									        Ce lien expirera dans
+		{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+	</p>
+	<div class="flex flex-col items-center space-y-4">
+		<p class="text-center text-[12px] pl-8 pr-8">Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou
+		</p>
+		<a href="{{ path('app_forgot_password_request') }}" class="w-34 text-white text-[12px] text-center py-1 rounded-full p-4">Réessayer</a>
+	</div>
+<div class="flex justify-center">
+		<a href="{{ path('login') }}" class="w-24 text-white text-[12px] text-center py-1 rounded-full mt-6">Se connecter</a>
+	</div>
 {% endblock %}
