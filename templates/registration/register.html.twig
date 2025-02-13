@@ -11,7 +11,8 @@
 	</div>
 	{{ form_errors(registrationForm) }}
 
-	{{ form_start(registrationForm) }}
+	{{ form_start(registrationForm), {'attr': {'id': 'registrationForm'}}
+	}}
 	<div class="flex flex-col items-center space-y-4">
 		{{ form_row(registrationForm.username) }}
 		{{ form_row(registrationForm.email) }}
@@ -26,4 +27,30 @@
 	<div class="flex justify-center">
 		<a href="{{ path('login') }}" class="w-24 text-white text-[12px] text-center py-1 rounded-full">Se connecter</a>
 	</div>
-{% endblock %}
+	<script>
+		document.querySelector("#registrationForm").addEventListener("submit", function (e) {
+const error = document.querySelectorAll(".error-message");
+let isValid = true;
+
+const key = document.querySelector("registrationForm.plainPassword.first");
+const keyRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+if (keyRegex.test(key.value)) {
+error[0].textContent = "";
+} else {
+isValid = false;
+error[0].textContent = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
+}
+const keyConfirm = document.querySelector("registrationForm.plainPassword.second");
+if (keyConfirm.value === key.value) {
+error[1].textContent = "";
+} else {
+isValid = false;
+error[1].textContent = "Les mots de passe doivent être identiques.";
+}
+if (! isValid) {
+e.preventDefault();
+}
+});
+	</script>
+
+{% endblock %}{% endblock %}
