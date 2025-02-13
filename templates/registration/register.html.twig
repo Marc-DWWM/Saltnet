@@ -9,15 +9,20 @@
 		<h1 class="text-[15px] pl-14 pr-14 text-center">Ajoute ton grain de sel… ou verse la salière entière.</h1>
 		<h2 class="text-[30px] pb-8">Inscrivez-vous</h2>
 	</div>
-	{{ form_errors(registrationForm) }}
+{# Supprime l'affichage global des erreurs Symfony #}
+{# Ne pas afficher les erreurs Symfony car elles sont déjà gérées par le script JS #}
 
-	{{ form_start(registrationForm), {'attr': {'id': 'registrationForm'}}
-	}}
+	{{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+
 	<div class="flex flex-col items-center space-y-4">
 		{{ form_row(registrationForm.username) }}
 		{{ form_row(registrationForm.email) }}
-		{{ form_row(registrationForm.plainPassword.first) }}
-		{{ form_row(registrationForm.plainPassword.second) }}
+	{{ form_row(registrationForm.plainPassword.first) }}
+<small class="error-message text-red-500" style="display: none;">Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.</small>
+
+{{ form_row(registrationForm.plainPassword.second) }}
+<small class="error-message text-red-500" style="display: none;">Les mots de passe doivent être pareil.</small>
+
 		{{ form_row(registrationForm.agreeTerms) }}
 
 		<button type="submit" class="w-24 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full">S'inscrire</button>
@@ -27,30 +32,45 @@
 	<div class="flex justify-center">
 		<a href="{{ path('login') }}" class="w-24 text-white text-[12px] text-center py-1 rounded-full">Se connecter</a>
 	</div>
-	<script>
-		document.querySelector("#registrationForm").addEventListener("submit", function (e) {
-const error = document.querySelectorAll(".error-message");
-let isValid = true;
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("#registrationForm");
+        const passwordField = document.querySelector("[name='registration_form[plainPassword][first]']");
+        const confirmPasswordField = document.querySelector("[name='registration_form[plainPassword][second]']");
+        const passwordError = passwordField.closest("div").querySelector(".error-message");
+        const confirmPasswordError = confirmPasswordField.closest("div").querySelector(".error-message");
 
-const key = document.querySelector("registrationForm.plainPassword.first");
-const keyRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
-if (keyRegex.test(key.value)) {
-error[0].textContent = "";
-} else {
-isValid = false;
-error[0].textContent = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
-}
-const keyConfirm = document.querySelector("registrationForm.plainPassword.second");
-if (keyConfirm.value === key.value) {
-error[1].textContent = "";
-} else {
-isValid = false;
-error[1].textContent = "Les mots de passe doivent être identiques.";
-}
-if (! isValid) {
-e.preventDefault();
-}
-});
-	</script>
+        const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 
-{% endblock %}{% endblock %}
+        form.addEventListener("submit", function (e) {
+            let isValid = true;
+
+            // Validation du mot de passe
+            if (!passwordRegex.test(passwordField.value)) {
+                passwordError.textContent = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
+                passwordError.style.display = "block";
+                isValid = false;
+            } else {
+                passwordError.textContent = "";
+                passwordError.style.display = "none";
+            }
+
+            // Validation de la confirmation du mot de passe
+            if (confirmPasswordField.value !== passwordField.value) {
+                confirmPasswordError.textContent = "Les mots de passe doivent être identiques.";
+                confirmPasswordError.style.display = "block";
+                isValid = false;
+            } else {
+                confirmPasswordError.textContent = "";
+                confirmPasswordError.style.display = "none";
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}
