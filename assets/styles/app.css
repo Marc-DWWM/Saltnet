@@ -18,3 +18,21 @@ a:hover {
     background-color: #FF1B1C;
     opacity: 100%;
 }
+
+.logout-svg {
+    background-color: #1A1A2E;
+}
+.logout-svg:hover {
+    background-color: #1A1A2E;
+    opacity: 100%;
+}
+nav {
+    background-color: #21213B;
+}
+.nav-svg {
+    background-color: #21213B;
+}
+.nav-svg:hover {
+    background-color: #21213B;
+    opacity: 100%;
+}
