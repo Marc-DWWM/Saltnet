@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register
-{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block body %}
 	<div class="flex flex-col items-center space-y-4">
@@ -9,68 +8,74 @@
 		<h1 class="text-[15px] pl-14 pr-14 text-center">Ajoute ton grain de sel… ou verse la salière entière.</h1>
 		<h2 class="text-[30px] pb-8">Inscrivez-vous</h2>
 	</div>
-{# Supprime l'affichage global des erreurs Symfony #}
-{# Ne pas afficher les erreurs Symfony car elles sont déjà gérées par le script JS #}
 
-	{{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+	{% form_theme registrationForm _self %}
+
+	{% block form_errors %}{% endblock %}
+	{{ form_start(registrationForm, { attr: { id: 'registrationForm' } }) }}
 
 	<div class="flex flex-col items-center space-y-4">
 		{{ form_row(registrationForm.username) }}
 		{{ form_row(registrationForm.email) }}
-	{{ form_row(registrationForm.plainPassword.first) }}
-<small class="error-message text-red-500" style="display: none;">Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.</small>
 
-{{ form_row(registrationForm.plainPassword.second) }}
-<small class="error-message text-red-500" style="display: none;">Les mots de passe doivent être pareil.</small>
+		<div class="w-full max-w-sm">
+			{{ form_row(registrationForm.plainPassword.first) }}
+			<p class="error-message text-red-500 text-sm hidden"></p>
+		</div>
+
+		<div class="w-full max-w-sm">
+			{{ form_row(registrationForm.plainPassword.second) }}
+			<p class="error-message text-red-500 text-sm hidden"></p>
+		</div>
 
 		{{ form_row(registrationForm.agreeTerms) }}
 
 		<button type="submit" class="w-24 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full">S'inscrire</button>
 	</div>
 	{{ form_end(registrationForm) }}
+
 	<h3 class="text-center pt-8 pb-4">Vous avez déjà un compte ?</h3>
 	<div class="flex justify-center">
-		<a href="{{ path('login') }}" class="w-24 text-white text-[12px] text-center py-1 rounded-full">Se connecter</a>
+		<a href="{{ path('login') }}" class="w-24 bg-gray-500 text-white text-[12px] text-center py-1 rounded-full">Se connecter</a>
 	</div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const form = document.querySelector("#registrationForm");
-        const passwordField = document.querySelector("[name='registration_form[plainPassword][first]']");
-        const confirmPasswordField = document.querySelector("[name='registration_form[plainPassword][second]']");
-        const passwordError = passwordField.closest("div").querySelector(".error-message");
-        const confirmPasswordError = confirmPasswordField.closest("div").querySelector(".error-message");
 
-        const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const form = document.querySelector("#registrationForm");
+			const passwordField = document.querySelector("[name='registration_form[plainPassword][first]']");
+			const confirmPasswordField = document.querySelector("[name='registration_form[plainPassword][second]']");
+			const passwordError = passwordField.closest("div").querySelector(".error-message");
+			const confirmPasswordError = confirmPasswordField.closest("div").querySelector(".error-message");
 
-        form.addEventListener("submit", function (e) {
-            let isValid = true;
+			const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 
-            // Validation du mot de passe
-            if (!passwordRegex.test(passwordField.value)) {
-                passwordError.textContent = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
-                passwordError.style.display = "block";
-                isValid = false;
-            } else {
-                passwordError.textContent = "";
-                passwordError.style.display = "none";
-            }
+			form.addEventListener("submit", function (e) {
+				let isValid = true;
 
-            // Validation de la confirmation du mot de passe
-            if (confirmPasswordField.value !== passwordField.value) {
-                confirmPasswordError.textContent = "Les mots de passe doivent être identiques.";
-                confirmPasswordError.style.display = "block";
-                isValid = false;
-            } else {
-                confirmPasswordError.textContent = "";
-                confirmPasswordError.style.display = "none";
-            }
+				// Validation du mot de passe
+				if (!passwordRegex.test(passwordField.value)) {
+					passwordError.textContent = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
+					passwordError.classList.remove("hidden");
+					isValid = false;
+				} else {
+					passwordError.textContent = "";
+					passwordError.classList.add("hidden");
+				}
 
-            if (!isValid) {
-                e.preventDefault();
-            }
-        });
-    });
-</script>
+				// Validation de la confirmation du mot de passe
+				if (confirmPasswordField.value !== passwordField.value) {
+					confirmPasswordError.textContent = "Les mots de passe doivent être identiques.";
+					confirmPasswordError.classList.remove("hidden");
+					isValid = false;
+				} else {
+					confirmPasswordError.textContent = "";
+					confirmPasswordError.classList.add("hidden");
+				}
 
-
+				if (!isValid) {
+					e.preventDefault();
+				}
+			});
+		});
+	</script>
 {% endblock %}
