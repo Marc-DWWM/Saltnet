@@ -26,10 +26,12 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'reposts')]
+    #[ORM\JoinColumn(name: 'original_post_id', referencedColumnName: 'id', nullable: true)]
     private ?Post $originalPost = null;
 
-    private $reposts;
-
+    #[ORM\OneToMany(mappedBy: 'originalPost', targetEntity: Post::class)]
+    private Collection $reposts;
 
     /**
      * @var Collection<int, Comment>
@@ -189,6 +191,35 @@ class Post
         return $this;
     }
 
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getReposts(): Collection
+    {
+        return $this->reposts;
+    }
+
+    public function addRepost(Post $repost): static
+    {
+        if (!$this->reposts->contains($repost)) {
+            $this->reposts->add($repost);
+            $repost->setOriginalPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepost(Post $repost): static
+    {
+        if ($this->reposts->removeElement($repost)) {
+            // set the owning side to null (unless already changed)
+            if ($repost->getOriginalPost() === $this) {
+                $repost->setOriginalPost(null);
+            }
+        }
+
+        return $this;
+    }
 
     public function getOriginalPost(): ?Post
     {
