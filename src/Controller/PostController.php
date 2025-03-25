@@ -27,7 +27,7 @@ final class PostController extends AbstractController
     }
 
     #[Route('/new', name: 'app_post_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository): Response
     {
         $user = $this->getUser();
         $post = new Post($user);
@@ -94,35 +94,60 @@ final class PostController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'app_post_delete', methods: ['POST'])]
-    public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
-{
-    if ($post->getUserPost() !== $this->getUser()) {
-        throw $this->createAccessDeniedException("Vous n'êtes pas l'auteur de ce post");
-    }
-    if (!$this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
-        throw $this->createAccessDeniedException('Token CSRF invalide');
-    }
-
-    $entityManager->remove($post);
-    $entityManager->flush();
-
-
-
-    return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
-}
-
-    #[Route('/{id}/repost', name: 'app_post_repost', methods: ['GET'])]
-    public function repost(EntityManagerInterface $entityManager, Post $post): Response
+    public function delete(Request $request, Post $post, EntityManagerInterface $entityManager, PostRepository $postRepository): Response
     {
-        $user = $this->getUser();
-        $repost = new Post();
-        $repost->setPost($post->getPost());
-        $repost->setOriginalPost($post);
-        $repost->setUserPost($user);
+        if (!$this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Token CSRF invalide');
+        }
 
-        $entityManager->persist($repost);
+        $user = $this->getUser();
+
+        // vérifie que c'est bien l'utilisateur du post qui veut le supprimé
+        if ($post->getUserPost() !== $user) {
+            throw $this->createAccessDeniedException("Vous n'êtes pas l'utilisateur de ce post.");
+        }
+        // je récupere tous les repost qui sont associé au post originel
+        $reposts = $postRepository->findBy(['originalPost' => $post]);
+        // je supprime tou les repost trouvé
+        foreach ($reposts as $repost) {
+            $entityManager->remove($repost);
+        }
+        //je supprime également le post originel
+        $entityManager->remove($post);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    #[Route('/{id}/repost', name: 'app_post_repost', methods: ['GET'])]
+    public function repost(EntityManagerInterface $entityManager, Post $post, PostRepository $postRepository): Response
+    {
+
+        $user = $this->getUser();
+        // je vérifie que l'utilisateur a déja fait un repost de ce post
+        $existingRepost = $postRepository->findOneBy([
+            'originalPost' => $post,
+        ]);
+        // si le repost est déjà existant, il faut le supprimé
+        if ($existingRepost) {
+
+            $entityManager->remove($existingRepost);
+            $entityManager->flush();
+
+            $this->addFlash('succès', 'Vous avez déjà enlevé ce post');
+        }
+        // si le repost n'est pas encore fait, créer le
+        else {
+            $repost = new Post();
+            $repost->setPost($post->getPost());
+            $repost->setOriginalPost($post);
+            $repost->setUserPost($user);
+
+            $entityManager->persist($repost);
+            $entityManager->flush();
+            $this->addFlash('succès', 'Vous avez reposté ce post.');
+        }
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 }

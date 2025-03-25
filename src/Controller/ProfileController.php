@@ -24,12 +24,15 @@ final class ProfileController extends AbstractController
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
         $posts = $user->getPosts();
+        $postComments = $user->getComments();
 
         return $this->render('profile/index.html.twig', [
             'controller_name' => 'Profil de l\'utilisateur',
             'posts' => $posts,
+            'postComments' => $postComments,
         ]);
     }
+
 
 
 
