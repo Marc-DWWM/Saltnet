@@ -19,13 +19,6 @@ a:hover {
     opacity: 100%;
 }
 
-.logout-svg {
-    background-color: #1A1A2E;
-}
-.logout-svg:hover {
-    background-color: #1A1A2E;
-    opacity: 100%;
-}
 nav {
     background-color: #21213B;
 }
@@ -35,4 +28,8 @@ nav {
 .nav-svg:hover {
     background-color: #21213B;
     opacity: 100%;
+}
+
+.small-nav {
+    background-color: #21213B;
 }

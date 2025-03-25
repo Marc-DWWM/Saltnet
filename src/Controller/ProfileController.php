@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Form\PictureProfilType;
+use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -19,17 +20,26 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 final class ProfileController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(): Response
+    public function index(Request $request, PostRepository $postRepository): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
         $posts = $user->getPosts();
         $postComments = $user->getComments();
 
+        $page = $request->query->getInt('page', 1);
+        $limit = 10;
+        $posts = $postRepository->paginatePosts($page, $limit);
+        $maxPage = ceil($posts->count() / $limit);
+
+
+
         return $this->render('profile/index.html.twig', [
             'controller_name' => 'Profil de l\'utilisateur',
             'posts' => $posts,
             'postComments' => $postComments,
+            'maxPage' => $maxPage,
+            'page' => $page,
         ]);
     }
 
