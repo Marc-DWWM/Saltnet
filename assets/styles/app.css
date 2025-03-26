@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 body {
     background-color: #1A1A2E;
 }
@@ -23,6 +25,8 @@ nav {
     background-color: #21213B;
 }
 .nav-svg {
+    width: 30px;
+    height: 30px;
     background-color: #21213B;
 }
 .nav-svg:hover {
@@ -51,6 +55,10 @@ nav {
     border-radius: 50%;
 }
 
-.svg-like {
-  
+.svg-post {
+    background-color: #21213B;
+}
+.color-post {
+    color: #E0E0E0;
+    background-color: #21213B;
 }

@@ -12,7 +12,6 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('user_post')
             ->add('post')
             ->add('created_at', null, [
                 'widget' => 'single_text',
