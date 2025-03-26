@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Intervention\Image\ImageManagerStatic as Image;
 
 #[Route('/profil', name: 'profile_')]
 
@@ -52,7 +53,8 @@ final class ProfileController extends AbstractController
         Request $request,
         SluggerInterface $slugger,
         #[Autowire('%kernel.project_dir%/public/uploads')] string $picturesDirectory,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+
     ): Response {
         $user = $this->getUser();
         $form = $this->createForm(PictureProfilType::class, $user);
@@ -61,7 +63,6 @@ final class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $pictureFile */
             $pictureFile = $form->get('picture')->getData();
-
             if ($pictureFile) {
                 /** @var \App\Entity\User $user */
                 $originalFilename = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);

@@ -33,3 +33,24 @@ nav {
 .small-nav {
     background-color: #21213B;
 }
+
+.img-profile {
+    margin-top: 10px;
+    width: 100px;
+    height: 100px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.img-post {
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.svg-like {
+  
+}
