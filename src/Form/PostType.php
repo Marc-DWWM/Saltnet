@@ -17,7 +17,7 @@ class PostType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => "écrire un message",
-                    'class' => 'p-4 bg-[#21213B] text-white placeholder:text-[12px] rounded-t-xl rounded-b-xl',
+                    'class' => 'p-4 bg-[#21213B] text-white text-[12px] placeholder:text-[12px] rounded-t-xl rounded-b-xl',
                 ]
             ])
         ;

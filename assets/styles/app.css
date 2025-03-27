@@ -55,6 +55,16 @@ nav {
     border-radius: 50%;
 }
 
+.post-view {
+    width: 60px;
+    height: 60px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+.svg-view {
+    background-color: #1A1A2E;
+}
 .svg-post {
     background-color: #21213B;
 }

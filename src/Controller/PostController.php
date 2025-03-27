@@ -24,13 +24,16 @@ final class PostController extends AbstractController
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
         ]);
+
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/new', name: 'app_post_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository): Response
     {
         $user = $this->getUser();
-        $post = new Post($user);
+        $post = new Post();
+        $post->setUserPost($user);
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
@@ -84,7 +87,7 @@ final class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('post/edit.html.twig', [
@@ -102,7 +105,7 @@ final class PostController extends AbstractController
 
         $user = $this->getUser();
 
-        // vérifie que c'est bien l'utilisateur du post qui veut le supprimé
+        //vérifie que c'est bien l'utilisateur du post qui veut le supprimé
         if ($post->getUserPost() !== $user) {
             throw $this->createAccessDeniedException("Vous n'êtes pas l'utilisateur de ce post.");
         }
@@ -121,11 +124,11 @@ final class PostController extends AbstractController
     {
 
         $user = $this->getUser();
-        // je vérifie que l'utilisateur a déja fait un repost de ce post
+        //je vérifie que l'utilisateur a déja fait un repost de ce post
         $existingRepost = $postRepository->findOneBy([
             'originalPost' => $post,
         ]);
-        // si le repost est déjà existant, il faut le supprimé
+        //si le repost est déjà existant, il faut le supprimé
         if ($existingRepost) {
 
             $entityManager->remove($existingRepost);
@@ -133,7 +136,7 @@ final class PostController extends AbstractController
 
             $this->addFlash('succès', 'Vous avez déjà enlevé ce post');
         }
-        // si le repost n'est pas encore fait, créer le
+        //si le repost n'est pas encore fait, créer le
         else {
             $repost = new Post();
             $repost->setPost($post->getPost());
