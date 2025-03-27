@@ -26,17 +26,17 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'reposts')]
+    #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'reposts', cascade: ['remove'])]
     #[ORM\JoinColumn(name: 'original_post_id', referencedColumnName: 'id', nullable: true)]
     private ?Post $originalPost = null;
 
-    #[ORM\OneToMany(mappedBy: 'originalPost', targetEntity: Post::class)]
+    #[ORM\OneToMany(mappedBy: 'originalPost', targetEntity: Post::class, cascade: ['remove'])]
     private Collection $reposts;
 
     /**
      * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post_comment')]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post_comment', cascade: ['remove'])]
     private Collection $comments;
 
     /**

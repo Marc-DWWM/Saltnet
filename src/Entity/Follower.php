@@ -13,11 +13,13 @@ class Follower
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'followers')]
+    // Relation pour "user_follower" (celui qui suit)
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'userFollowers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user_follower = null;
 
-    #[ORM\ManyToOne(inversedBy: 'followers')]
+    // Relation pour "follower" (celui qui est suivi)
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'followers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $follower = null;
 

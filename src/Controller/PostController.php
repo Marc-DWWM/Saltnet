@@ -106,12 +106,8 @@ final class PostController extends AbstractController
         if ($post->getUserPost() !== $user) {
             throw $this->createAccessDeniedException("Vous n'êtes pas l'utilisateur de ce post.");
         }
-        // je récupere tous les repost qui sont associé au post originel
-        $reposts = $postRepository->findBy(['originalPost' => $post]);
-        // je supprime tou les repost trouvé
-        foreach ($reposts as $repost) {
-            $entityManager->remove($repost);
-        }
+ 
+        
         //je supprime également le post originel
         $entityManager->remove($post);
         $entityManager->flush();
