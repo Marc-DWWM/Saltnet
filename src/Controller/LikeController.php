@@ -2,45 +2,48 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Post;
 use App\Entity\Like;
+use App\Repository\LikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 class LikeController extends AbstractController
 {
     #[Route('/post/{id}/like', name: 'post_like', methods: ['POST'])]
-    #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    public function like(Post $post, EntityManagerInterface $em): JsonResponse
+
+    public function like(EntityManagerInterface $entityManager, Post $post, LikeRepository $likeRepository): Response
     {
-        /** @var \App\Entity\User $user */
+
+
         $user = $this->getUser();
-
-        // vérifie si l'utilisateur a déjà liké le post
-        $like = $em->getRepository(Like::class)->findOneBy(['post' => $post, 'user' => $user]);
-
-        if ($like) {
-            // si post déjà liké, on enlève le like
-            $em->remove($like);
-        } else {
-            // si pas liké on ajoute le like
-            $newLike = new Like();
-            $newLike->setPostLike($post);
-            $newLike->setUserLike($user);
-            $em->persist($newLike);
-        }
-
-        $em->flush();
-
-        // Retourner une réponse JSON
-        return $this->json([
-            'status' => 'success',
-            'liked' => $like ? false : true,
-            'likeCount' => count($post->getLikes())
+        //je vérifie que l'utilisateur a déja fait un like de ce post
+        $existingLike = $likeRepository->findOneBy([
+            'user_like' => $user,
+            'post_like' => $post,
         ]);
+        //si le like est déjà existant, il faut le supprimé
+        if ($existingLike) {
+
+            $entityManager->remove($existingLike);
+            $entityManager->flush();
+
+            $this->addFlash('succès', 'Vous avez déjà enlevé ce like');
+        }
+        //si le like n'est pas encore fait, créer le
+        else {
+            $like = new Like();
+            $like->setUserLike($user);
+            $like->setPostLike($post);
+
+            $entityManager->persist($like);
+            $entityManager->flush();
+            $this->addFlash('succès', 'Vous avez liké ce post.');
+        }
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 }

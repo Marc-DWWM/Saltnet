@@ -109,8 +109,8 @@ final class PostController extends AbstractController
         if ($post->getUserPost() !== $user) {
             throw $this->createAccessDeniedException("Vous n'êtes pas l'utilisateur de ce post.");
         }
- 
-        
+
+
         //je supprime également le post originel
         $entityManager->remove($post);
         $entityManager->flush();

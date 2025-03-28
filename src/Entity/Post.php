@@ -58,6 +58,12 @@ class Post
         return $this->id;
     }
 
+    public function getUserPhoto(): ?string
+    {
+        return $this->user_post ? $this->user_post->getPhoto() : null;
+    }
+
+
     public function getUserPost(): ?User
     {
         return $this->user_post;
