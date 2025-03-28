@@ -36,7 +36,6 @@ final class ProfileController extends AbstractController
 
 
         return $this->render('profile/index.html.twig', [
-            'controller_name' => 'Profil de l\'utilisateur',
             'posts' => $posts,
             'postComments' => $postComments,
             'maxPage' => $maxPage,

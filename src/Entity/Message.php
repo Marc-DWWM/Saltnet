@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,15 +24,9 @@ class Message
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    /**
-     * @var Collection<int, Report>
-     */
-    #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'message_report')]
-    private Collection $reports;
-
     public function __construct()
     {
-        $this->reports = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -74,36 +66,6 @@ class Message
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Report>
-     */
-    public function getReports(): Collection
-    {
-        return $this->reports;
-    }
-
-    public function addReport(Report $report): static
-    {
-        if (!$this->reports->contains($report)) {
-            $this->reports->add($report);
-            $report->setMessageReport($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReport(Report $report): static
-    {
-        if ($this->reports->removeElement($report)) {
-            // set the owning side to null (unless already changed)
-            if ($report->getMessageReport() === $this) {
-                $report->setMessageReport(null);
-            }
-        }
 
         return $this;
     }

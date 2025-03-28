@@ -13,21 +13,12 @@ class Report
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $reason_reporting = null;
+
     #[ORM\ManyToOne(inversedBy: 'reports')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user_report = null;
-
-    #[ORM\ManyToOne(inversedBy: 'reports')]
-    private ?Post $post_report = null;
-
-    #[ORM\ManyToOne(inversedBy: 'reports')]
-    private ?Comment $comment_report = null;
-
-    #[ORM\ManyToOne(inversedBy: 'reports')]
-    private ?Message $message_report = null;
-
-    #[ORM\ManyToOne(inversedBy: 'reports')]
-    private ?File $file_report = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $report_at = null;
@@ -49,54 +40,6 @@ class Report
         return $this;
     }
 
-    public function getPostReport(): ?Post
-    {
-        return $this->post_report;
-    }
-
-    public function setPostReport(?Post $post_report): static
-    {
-        $this->post_report = $post_report;
-
-        return $this;
-    }
-
-    public function getCommentReport(): ?Comment
-    {
-        return $this->comment_report;
-    }
-
-    public function setCommentReport(?Comment $comment_report): static
-    {
-        $this->comment_report = $comment_report;
-
-        return $this;
-    }
-
-    public function getMessageReport(): ?Message
-    {
-        return $this->message_report;
-    }
-
-    public function setMessageReport(?Message $message_report): static
-    {
-        $this->message_report = $message_report;
-
-        return $this;
-    }
-
-    public function getFileReport(): ?File
-    {
-        return $this->file_report;
-    }
-
-    public function setFileReport(?File $file_report): static
-    {
-        $this->file_report = $file_report;
-
-        return $this;
-    }
-
     public function getReportAt(): ?\DateTimeImmutable
     {
         return $this->report_at;
@@ -106,6 +49,17 @@ class Report
     {
         $this->report_at = $report_at;
 
+        return $this;
+    }
+
+    public function getReasonReporting(): ?string
+    {
+        return $this->reason_reporting;
+    }
+
+    public function setReasonReporting(string $reasonReporting): static
+    {
+        $this->reason_reporting = $reasonReporting;
         return $this;
     }
 }

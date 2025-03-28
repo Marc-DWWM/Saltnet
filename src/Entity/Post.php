@@ -45,17 +45,10 @@ class Post
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'post_like')]
     private Collection $likes;
 
-    /**
-     * @var Collection<int, Report>
-     */
-    #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'post_report')]
-    private Collection $reports;
-
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
-        $this->reports = new ArrayCollection();
         $this->reposts = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
     }
@@ -155,36 +148,6 @@ class Post
             // set the owning side to null (unless already changed)
             if ($like->getPostLike() === $this) {
                 $like->setPostLike(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Report>
-     */
-    public function getReports(): Collection
-    {
-        return $this->reports;
-    }
-
-    public function addReport(Report $report): static
-    {
-        if (!$this->reports->contains($report)) {
-            $this->reports->add($report);
-            $report->setPostReport($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReport(Report $report): static
-    {
-        if ($this->reports->removeElement($report)) {
-            // set the owning side to null (unless already changed)
-            if ($report->getPostReport() === $this) {
-                $report->setPostReport(null);
             }
         }
 

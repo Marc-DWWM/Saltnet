@@ -27,7 +27,7 @@ final class MainController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $post->setUserPost($this->getUser());
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -35,7 +35,6 @@ final class MainController extends AbstractController
         }
 
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
             'posts' => $posts,
             'postForm' => $form->createView(),
             'maxPage' => $maxPage,
