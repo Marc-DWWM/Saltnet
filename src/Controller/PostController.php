@@ -51,11 +51,15 @@ final class PostController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_post_show', methods: ['GET', 'POST'])]
-    public function show(Post $post, Request $request, EntityManagerInterface $entityManager): Response
+    public function show(Post $post, Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository): Response
     {
         $comment = new Comment();
         $commentForm = $this->createForm(CommentType::class, $comment);
         $commentForm->handleRequest($request);
+        $page = $request->query->getInt('page', 1);
+        $limit = 10;
+        $posts = $postRepository->paginatePosts($page, $limit);
+        $maxPage = ceil($posts->count() / $limit);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $comment->setPostComment($post);
@@ -71,6 +75,8 @@ final class PostController extends AbstractController
         return $this->render('post/show.html.twig', [
             'post' => $post,
             'commentForm' => $commentForm->createView(),
+            'maxPage' => $maxPage,
+            'page' => $page,
         ]);
     }
 

@@ -27,6 +27,7 @@ class PostRepository extends ServiceEntityRepository
                 ->createQueryBuilder('r')
                 ->setFirstResult(($page - 1) * $limit)
                 ->setMaxResults($limit)
+                ->orderBy('r.created_at', 'DESC')
                 ->getQuery()
                 ->setHint(Paginator::HINT_ENABLE_DISTINCT, false)
         );
