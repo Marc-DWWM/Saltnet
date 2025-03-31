@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Repost;
 use App\Form\PictureProfilType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +27,7 @@ final class ProfileController extends AbstractController
         $user = $this->getUser();
         $posts = $user->getPosts();
         $postComments = $user->getComments();
-
+        $reposts = $user->getReposts();
         $page = $request->query->getInt('page', 1);
         $limit = 10;
         $posts = $postRepository->paginatePosts($page, $limit);
@@ -38,6 +38,7 @@ final class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', [
             'posts' => $posts,
             'postComments' => $postComments,
+            'reposts' => $reposts,
             'maxPage' => $maxPage,
             'page' => $page,
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Repost;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\PostType;
@@ -126,33 +127,36 @@ final class PostController extends AbstractController
 
 
     #[Route('/{id}/repost', name: 'app_post_repost', methods: ['GET'])]
-    public function repost(EntityManagerInterface $entityManager, Post $post, PostRepository $postRepository): Response
+    public function repost(EntityManagerInterface $entityManager, Post $post): Response
     {
-
         $user = $this->getUser();
-        //je vérifie que l'utilisateur a déja fait un repost de ce post
-        $existingRepost = $postRepository->findOneBy([
+    
+        // Vérifier si l'utilisateur a déjà reposté ce post
+        $existingRepost = $entityManager->getRepository(Repost::class)->findOneBy([
             'originalPost' => $post,
+            'userPost' => $user,
         ]);
-        //si le repost est déjà existant, il faut le supprimé
+    
+        // Si le repost existe déjà, il faut le dissocier
         if ($existingRepost) {
-
             $entityManager->remove($existingRepost);
             $entityManager->flush();
-
-            $this->addFlash('succès', 'Vous avez déjà enlevé ce post');
-        }
-        //si le repost n'est pas encore fait, créer le
+    
+            $this->addFlash('success', 'Vous avez déjà supprimé ce repost');
+        } 
+        // Si le repost n'existe pas, en créer un nouveau
         else {
-            $repost = new Post();
-            $repost->setPost($post->getPost());
+            // Créer une nouvelle instance de Repost
+            $repost = new Repost();
             $repost->setOriginalPost($post);
-            $repost->setUserPost($user);
-
+            $repost->setUserRepost($user);
             $entityManager->persist($repost);
             $entityManager->flush();
-            $this->addFlash('succès', 'Vous avez reposté ce post.');
+    
+            $this->addFlash('success', 'Vous avez reposté ce post');
         }
+    
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
+    
 }

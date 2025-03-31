@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -100,6 +101,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'user_group')]
     private Collection $groups;
 
+    /**
+     * @var Collection<int, Repost>
+     */
+    #[ORM\OneToMany(targetEntity: Repost::class, mappedBy: 'userRepost')]
+    private Collection $reposts;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,6 +152,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->files = new ArrayCollection();
         $this->reports = new ArrayCollection();
         $this->groups = new ArrayCollection();
+        $this->reposts = new ArrayCollection();
     }
     public function getRoles(): array
     {
@@ -190,7 +198,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    
+
     public function __toString(): string
     {
         return $this->username; // Retourne le nom d'utilisateur comme chaîne de caractères
@@ -466,17 +474,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-private ?string $photo = null;
+    private ?string $photo = null;
 
-public function getPhoto(): ?string
-{
-    return $this->photo;
-}
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
 
-public function setPhoto(?string $photo): static
-{
-    $this->photo = $photo;
+    public function setPhoto(?string $photo): static
+    {
+        $this->photo = $photo;
 
-    return $this;
-}
+        return $this;
+    }
+
+    public function getReposts(): Collection
+    {
+        return $this->reposts;
+    }
+
+    public function addRepost(Repost $repost): static
+    {
+        if (!$this->reposts->contains($repost)) {
+            $this->reposts->add($repost);
+            $repost->setUserRepost($this); 
+        }
+
+        return $this;
+    }
+
+    public function removeRepost(Repost $repost): static
+    {
+        if ($this->reposts->removeElement($repost)) {
+            // set the owning side to null (unless already changed)
+            if ($repost->getUserRepost() === $this) {
+                $repost->setUserRepost(null);
+            }
+        }
+
+        return $this;
+    }
 }

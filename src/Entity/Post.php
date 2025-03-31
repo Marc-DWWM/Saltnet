@@ -26,13 +26,6 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'reposts', cascade: ['remove'])]
-    #[ORM\JoinColumn(name: 'original_post_id', referencedColumnName: 'id', nullable: true)]
-    private ?Post $originalPost = null;
-
-    #[ORM\OneToMany(mappedBy: 'originalPost', targetEntity: Post::class, cascade: ['remove'])]
-    private Collection $reposts;
-
     /**
      * @var Collection<int, Comment>
      */
@@ -44,6 +37,12 @@ class Post
      */
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'post_like')]
     private Collection $likes;
+
+    /**
+     * @var Collection<int, Repost>
+     */
+    #[ORM\OneToMany(targetEntity: Repost::class, mappedBy: 'originalPost')]
+    private Collection $reposts;
 
     public function __construct()
     {
@@ -62,7 +61,6 @@ class Post
     {
         return $this->user_post ? $this->user_post->getPhoto() : null;
     }
-
 
     public function getUserPost(): ?User
     {
@@ -161,14 +159,14 @@ class Post
     }
 
     /**
-     * @return Collection<int, Post>
+     * @return Collection<int, Repost>
      */
     public function getReposts(): Collection
     {
         return $this->reposts;
     }
 
-    public function addRepost(Post $repost): static
+    public function addRepost(Repost $repost): static
     {
         if (!$this->reposts->contains($repost)) {
             $this->reposts->add($repost);
@@ -178,10 +176,9 @@ class Post
         return $this;
     }
 
-    public function removeRepost(Post $repost): static
+    public function removeRepost(Repost $repost): static
     {
         if ($this->reposts->removeElement($repost)) {
-            // set the owning side to null (unless already changed)
             if ($repost->getOriginalPost() === $this) {
                 $repost->setOriginalPost(null);
             }
@@ -189,15 +186,5 @@ class Post
 
         return $this;
     }
-
-    public function getOriginalPost(): ?Post
-    {
-        return $this->originalPost;
-    }
-
-    public function setOriginalPost(?Post $originalPost): self
-    {
-        $this->originalPost = $originalPost;
-        return $this;
-    }
 }
+
