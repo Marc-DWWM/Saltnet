@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Repost;
 use App\Form\PictureProfilType;
+use App\Repository\RepostRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,11 +21,10 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 final class ProfileController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(Request $request, PostRepository $postRepository): Response
+    public function index(Request $request, PostRepository $postRepository, RepostRepository $repostRepository): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
-        $posts = $user->getPosts();
         $postComments = $user->getComments();
         $reposts = $user->getReposts();
         $page = $request->query->getInt('page', 1);

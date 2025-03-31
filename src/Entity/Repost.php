@@ -34,7 +34,10 @@ class Repost
     {
         return $this->id;
     }
-
+    public function __toString(): string
+    {
+        return $this->originalPost->getPost();
+    }
     public function getOriginalPost(): ?Post
     {
         return $this->originalPost;
