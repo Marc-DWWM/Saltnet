@@ -132,14 +132,14 @@ final class PostController extends AbstractController
         $user = $this->getUser();
     
         // Vérifier si l'utilisateur a déjà reposté ce post
-        $existingRepost = $entityManager->getRepository(Repost::class)->findOneBy([
+        $existRepost = $entityManager->getRepository(Repost::class)->findOneBy([
             'originalPost' => $post,
-            'userPost' => $user,
+            'userRepost' => $user,
         ]);
     
         // Si le repost existe déjà, il faut le dissocier
-        if ($existingRepost) {
-            $entityManager->remove($existingRepost);
+        if ($existRepost) {
+            $entityManager->remove($existRepost);
             $entityManager->flush();
     
             $this->addFlash('success', 'Vous avez déjà supprimé ce repost');

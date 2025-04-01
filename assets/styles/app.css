@@ -77,3 +77,19 @@ nav {
     color: #E0E0E0;
     background-color: #2d2d51;
 }
+
+.profil-index {
+    font-family: 'Lato', sans-serif;
+    color: white;
+    background-color: #1A1A2E;
+}
+.profil-index:hover {
+    background-color: #1A1A2E;
+}
+
+.like-main {
+    background-color: #21213B;
+}
+.like-main:hover {
+    background-color: #1A1A2E;
+}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Repost;
 use App\Form\PictureProfilType;
 use App\Repository\RepostRepository;
 use App\Repository\PostRepository;
@@ -21,12 +22,11 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 final class ProfileController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(Request $request, PostRepository $postRepository, RepostRepository $repostRepository): Response
+    public function index(Request $request, PostRepository $postRepository): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
         $postComments = $user->getComments();
-        $reposts = $user->getReposts();
         $page = $request->query->getInt('page', 1);
         $limit = 10;
         $posts = $postRepository->paginatePosts($page, $limit);
@@ -37,16 +37,31 @@ final class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', [
             'posts' => $posts,
             'postComments' => $postComments,
-            'reposts' => $reposts,
             'maxPage' => $maxPage,
             'page' => $page,
         ]);
     }
 
+    #[Route('/reposts', name: 'reposts')]
+    public function repost(Request $request, PostRepository $postRepository, RepostRepository $repostRepository): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+        $reposts = $repostRepository->findBy(['userRepost' => $user]);
 
-
-
-
+        $page = $request->query->getInt('page', 1);
+        $limit = 10;
+        $posts = $postRepository->paginatePosts($page, $limit);
+        $maxPage = ceil($posts->count() / $limit);
+    
+        return $this->render('profile/reposts.html.twig', [
+            'posts' => $posts,
+            'reposts' => $reposts,
+            'maxPage' => $maxPage,
+            'page' => $page,
+        ]);
+    }
+    
     #[Route('/modifier', name: 'modifier')]
     public function uploadPicture(
         Request $request,
