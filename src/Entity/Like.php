@@ -27,6 +27,12 @@ class Like
     #[ORM\Column]
     private ?\DateTimeImmutable $like_at = null;
 
+    public function __construct()
+    {
+        // Initialisation de like_at à la date et l'heure actuelles
+        $this->like_at = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

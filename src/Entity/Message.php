@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Entity;
 
@@ -14,9 +14,15 @@ class Message
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'messages')]
+   
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'sentMessages')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user_message = null;
+
+ 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'receivedMessages')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $receiver = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
@@ -42,7 +48,17 @@ class Message
     public function setUserMessage(?User $user_message): static
     {
         $this->user_message = $user_message;
+        return $this;
+    }
 
+    public function getReceiver(): ?User
+    {
+        return $this->receiver;
+    }
+
+    public function setReceiver(?User $receiver): static
+    {
+        $this->receiver = $receiver;
         return $this;
     }
 
@@ -54,19 +70,11 @@ class Message
     public function setMessage(string $message): static
     {
         $this->message = $message;
-
         return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
-    {
-        $this->created_at = $created_at;
-
-        return $this;
     }
 }

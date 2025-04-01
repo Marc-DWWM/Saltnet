@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+<h1>Messagerie</h1>
+<p>Résumé de la messagerie</p>
+<p>Reçus : {{ app.user.receivedMessages|length }}</p>
+<p>Envoyés : {{ app.user.sentMessages|length }}</p>
+
+<a href="{{ path("send") }}">Envoyer un message</a>
+{% endblock %}

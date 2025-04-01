@@ -130,20 +130,20 @@ final class PostController extends AbstractController
     public function repost(EntityManagerInterface $entityManager, Post $post): Response
     {
         $user = $this->getUser();
-    
+
         // Vérifier si l'utilisateur a déjà reposté ce post
         $existRepost = $entityManager->getRepository(Repost::class)->findOneBy([
             'originalPost' => $post,
             'userRepost' => $user,
         ]);
-    
+
         // Si le repost existe déjà, il faut le dissocier
         if ($existRepost) {
             $entityManager->remove($existRepost);
             $entityManager->flush();
-    
+
             $this->addFlash('success', 'Vous avez déjà supprimé ce repost');
-        } 
+        }
         // Si le repost n'existe pas, en créer un nouveau
         else {
             // Créer une nouvelle instance de Repost
@@ -152,11 +152,10 @@ final class PostController extends AbstractController
             $repost->setUserRepost($user);
             $entityManager->persist($repost);
             $entityManager->flush();
-    
+
             $this->addFlash('success', 'Vous avez reposté ce post');
         }
-    
+
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
-    
 }

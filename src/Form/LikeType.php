@@ -4,22 +4,20 @@ namespace App\Form;
 
 use App\Entity\Like;
 use App\Entity\Post;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class LikeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
-            ->add('post_like', EntityType::class, [
-                'class' => Post::class,
-                'choice_label' => 'id',
-            ])
-        ;
+            ->add('like', SubmitType::class, [
+                'label' => 'Like',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -29,3 +27,4 @@ class LikeType extends AbstractType
         ]);
     }
 }
+
