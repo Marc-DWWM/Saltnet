@@ -97,3 +97,11 @@ nav {
 .like-main:hover {
     background-color: #1A1A2E;
 }
+
+.userMessage-color {
+    background-color: #21213B;
+}
+
+.userMessage-color:hover {
+    background-color: #21213B;
+}

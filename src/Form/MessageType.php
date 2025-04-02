@@ -17,21 +17,23 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('message', TextareaType::class, [
+                'label' => false,
                 'attr' => [
-                    "class" => ""
+                   'placeholder' => "écrire un message",
+                'class' => 'p-4 bg-[#21213B] text-white text-[12px] placeholder:text-[12px] rounded-t-xl rounded-b-xl',
                 ]
             ])
 
             ->add('receiver', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'username',
+                'label' => false,
                 'attr' => [
-                    "class" => ""
+                    "hidden" => "hidden"
                 ]
             ])
             ->add('envoyer', SubmitType::class, [
                 'attr' => [
-                    "class" => ""
+                    "class" => "mt-2 w-20 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full"
                 ]
             ])
         ;

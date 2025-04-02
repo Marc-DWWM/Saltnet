@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class PictureProfilType extends AbstractType
+class PictureProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -28,10 +28,9 @@ class PictureProfilType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024K',
+                        'maxSize' => '100K',
                         'mimeTypes' => [
-                            'image/jpeg',
-                            'image/jpg',
+                            'image/webp',
                         ],
                         'mimeTypesMessage' => 'Veuillez télécharger un fichier jpg valide',
                     ])

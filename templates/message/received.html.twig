@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+<h1>Boite de reception</h1>
+<p>Résumé de la messagerie</p>
+<p>Vous avez reçus : {{ app.user.receivedMessages|length }} messages</p>
+<p>Envoyés : {{ app.user.sentMessages|length }}</p>
+
+<div>De</div>
+<div>Sujet</div>
+<div>Date</div>
+<div>Actions</div>
+
+ {% for message in app.user.receivedMessages %}
+<div>{{ message.userMessage.username }}</div>
+<div>{{ message.message }}</div>
+<div>{{ message.createdAt|date }}</div>
+{% endfor %}
+
+{% endblock %}

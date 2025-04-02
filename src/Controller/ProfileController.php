@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Repost;
-use App\Form\PictureProfilType;
+use App\Form\PictureProfileType;
 use App\Repository\RepostRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,7 +71,7 @@ final class ProfileController extends AbstractController
 
     ): Response {
         $user = $this->getUser();
-        $form = $this->createForm(PictureProfilType::class, $user);
+        $form = $this->createForm(PictureProfileType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
