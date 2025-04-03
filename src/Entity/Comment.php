@@ -22,7 +22,7 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post_comment = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $comment = null;
 
     #[ORM\Column]

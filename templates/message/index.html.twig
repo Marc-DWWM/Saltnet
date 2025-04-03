@@ -15,13 +15,15 @@
 		{% if app.user and user.userMessage == app.user %}
 			{% else %}
 				<div class="m-4 flex flex-col justify-center items-center color-post rounded-full">
-					<a href="{{ path('conversation', {id: user.id}) }}" class="userMessage-color flex flex-col justify-center items-center color-post">
-						<h2 class="border-b-2 border-b-[#E0E0E0]">Utilisateur : {{ user.userMessage }}</h2>
-						<p>{{ user.message }}</p>
-						<p>Date : {{ user.createdAt|date }}</p>
-					</a>
-				</div>
-		{% endif %}
-	{% endfor %}
+						<a href="{{ path('conversation', {userId: user.id}) }}" class="userMessage-color flex flex-col justify-center items-center color-post">
+							<h2 class="border-b-2 border-b-[#E0E0E0]">Utilisateur :
+								{{ user.userMessage }}</h2>
+							<p>{{ user.message }}</p>
+							<p>Date :
+								{{ user.createdAt|date }}</p>
+						</a>
+					</div>
+				{% endif %}
+		{% endfor %}
 
-{% endblock %}
+	{% endblock %}

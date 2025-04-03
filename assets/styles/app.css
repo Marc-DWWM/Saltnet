@@ -65,7 +65,13 @@ nav {
 .svg-view {
     background-color: #1A1A2E;
 }
+.svg-view:hover {
+    background-color: #1A1A2E;
+}
 .svg-post {
+    background-color: #21213B;
+}
+.svg-post:hover {
     background-color: #21213B;
 }
 .color-post {
@@ -79,6 +85,9 @@ nav {
 }
 
 .svg-comment {
+    background-color: #2d2d51;
+}
+.svg-comment:hover {
     background-color: #2d2d51;
 }
 

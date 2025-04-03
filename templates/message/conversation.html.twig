@@ -11,34 +11,31 @@
 		<h1 class="w-100 text-center pt-1">Conversation</h1>
 	</div>
 	<div class="flex flex-col h-[70vh] overflow-y-auto" id="conversation">
-		{% for message in app.user.receivedMessages %}
+		{% for message in messages %}
 			<div class="mt-4 pl-4 mr-6 flex flex-col justify-center items-start bg-[#2A2A4F] rounded-r-2xl rounded-tl-2xl">
 				<h2 class="border-b-2 border-b-[#E0E0E0]">{{ message.userMessage.username }}</h2>
 				<p class="pt-2 pb-2">{{ message.message }}</p>
-				<p>{{ message.createdAt|date }}</p>
+				<p>Destinataire :
+					{{ message.receiver.username }}</p>
+				<p>{{ message.createdAt|date('d/m/Y H:i') }}</p>
 			</div>
-			{# problème message #}
+
 		{% endfor %}
-		{% for message in app.user.sentMessages %}
-			<div class="mt-4 pr-4 ml-6 flex flex-col justify-center items-end bg-[#3B3B6D] rounded-l-2xl rounded-tr-2xl">
-				<h2 class="border-b-2 border-b-[#E0E0E0]">{{ message.userMessage.username }}</h2>
-				<p class="pt-2 pb-2">{{ message.message }}</p>
-				<p>{{ message.createdAt|date }}</p>
-			</div>
-		{% endfor %}
-		<div id="bottom"></div>
 	</div>
-	<div class="sticky bottom-0 bg-[#1E1E3F] w-full p-4">
-		{{ form(form) }}
-		</div>
+
+	<div id="bottom"></div>
+</div>
+<div class="sticky bottom-0 bg-[#1E1E3F] w-full p-4">
+	{{ form(form) }}
+	</div>
 
 
-		<script>
-			function bottom() {
+	<script>
 
-const conversation = document.getElementById('bottom');
+		function bottom() {
+const conversation = document.getElementById('conversation');
 if (conversation) {
-conversation.scrollIntoView({behavior: "smooth"});
+conversation.scrollTop = conversation.scrollHeight;
 }
 
 }
@@ -50,8 +47,8 @@ bottom();
 const form = document.querySelector("form");
 if (form) {
 form.addEventListener("submit", function () {
-setTimeout(bottom, 100)
+setTimeout(bottom, 200)
 })
 }
-		</script>
-	{% endblock %}
+	</script>
+{% endblock %}

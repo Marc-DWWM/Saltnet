@@ -20,7 +20,7 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user_post = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $post = null;
 
     #[ORM\Column]

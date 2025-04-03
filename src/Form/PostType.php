@@ -16,8 +16,8 @@ class PostType extends AbstractType
             ->add('post', TextareaType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => "écrire un message",
-                    'class' => 'p-4 bg-[#21213B] text-white text-[12px] placeholder:text-[12px] rounded-t-xl rounded-b-xl',
+                    'placeholder' => "écrire un post",
+                    'class' => 'w-full p-4 bg-[#21213B] text-white text-[14px] placeholder:text-[14px] rounded-t-xl rounded-b-xl resize-none',
                 ]
             ])
         ;

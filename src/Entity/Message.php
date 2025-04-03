@@ -24,7 +24,7 @@ class Message
     #[ORM\JoinColumn(nullable: false)]
     private ?User $receiver = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $message = null;
 
     #[ORM\Column]
