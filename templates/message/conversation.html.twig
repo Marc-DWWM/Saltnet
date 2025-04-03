@@ -4,28 +4,54 @@
 {% endblock %}
 
 {% block body %}
-	<div class="mb-6 flex svg-post">
+	<div class="mb-6 flex svg-post sticky top-0 bg-[#1E1E3F] z-10 p-4">
 		<a href="{{ path('messages') }}">
 			<svg class="svg-post" xmlns="http://www.w3.org/2000/svg" height="32" width="28" viewbox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#e0e0e0" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
 		</a>
 		<h1 class="w-100 text-center pt-1">Conversation</h1>
 	</div>
-
-	{% for message in app.user.receivedMessages %}
-		<div class="mt-4 pl-4 mr-6 flex flex-col justify-center items-start bg-[#2A2A4F] rounded-r-2xl rounded-tl-2xl">
-			<h2 class="border-b-2 border-b-[#E0E0E0]">{{ message.userMessage.username }}</h2>
-			<p class="pt-2 pb-2">{{ message.message }}</p>
-			<p>{{ message.createdAt|date }}</p>
-		</div>
-	{% endfor %}
-	{% for message in app.user.sentMessages %}
-		<div class="mt-4 pr-4 ml-6 flex flex-col justify-center items-end bg-[#3B3B6D] rounded-l-2xl rounded-tr-2xl">
-			<h2 class="border-b-2 border-b-[#E0E0E0]">{{ message.userMessage.username }}</h2>
-			<p class="pt-2 pb-2">{{ message.message }}</p>
-			<p>{{ message.createdAt|date }}</p>
-		</div>
-	{% endfor %}
-	<div class="flex flex col justify-center items-center mt-4">
+	<div class="flex flex-col h-[70vh] overflow-y-auto" id="conversation">
+		{% for message in app.user.receivedMessages %}
+			<div class="mt-4 pl-4 mr-6 flex flex-col justify-center items-start bg-[#2A2A4F] rounded-r-2xl rounded-tl-2xl">
+				<h2 class="border-b-2 border-b-[#E0E0E0]">{{ message.userMessage.username }}</h2>
+				<p class="pt-2 pb-2">{{ message.message }}</p>
+				<p>{{ message.createdAt|date }}</p>
+			</div>
+			{# problème message #}
+		{% endfor %}
+		{% for message in app.user.sentMessages %}
+			<div class="mt-4 pr-4 ml-6 flex flex-col justify-center items-end bg-[#3B3B6D] rounded-l-2xl rounded-tr-2xl">
+				<h2 class="border-b-2 border-b-[#E0E0E0]">{{ message.userMessage.username }}</h2>
+				<p class="pt-2 pb-2">{{ message.message }}</p>
+				<p>{{ message.createdAt|date }}</p>
+			</div>
+		{% endfor %}
+		<div id="bottom"></div>
+	</div>
+	<div class="sticky bottom-0 bg-[#1E1E3F] w-full p-4">
 		{{ form(form) }}
 		</div>
+
+
+		<script>
+			function bottom() {
+
+const conversation = document.getElementById('bottom');
+if (conversation) {
+conversation.scrollIntoView({behavior: "smooth"});
+}
+
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+bottom();
+})
+
+const form = document.querySelector("form");
+if (form) {
+form.addEventListener("submit", function () {
+setTimeout(bottom, 100)
+})
+}
+		</script>
 	{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SearchController!
+{% endblock %}
+
+{% block body %}
+	<div class="mb-6 flex svg-post">
+		<a href="{{ path('home') }}">
+			<svg class="svg-post" xmlns="http://www.w3.org/2000/svg" height="32" width="28" viewbox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#e0e0e0" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+		</a>
+		<h1 class="w-100 text-center pt-1">Rechercher utilisateurs</h1>
+	</div>
+	<div class="flex flex-col justify-center items-center space-y-4 w-full max-w-sm">
+    <h2 class="pt-2">Lancer une recherche</h2>
+		{{ form_start(form) }}
+		{{ form_row(form.query) }}
+		{{ form_end(form) }}
+	</div>
+	{% if users is not empty %}
+		<ul class="pt-2">
+			{% for user in users %}
+				<a href="{{ path('search', { 'id': user.id }) }}" class=""></a>
+				<li class="pb-2 text-center">
+                		<h3 class="pt-4 text-center">Résultats de la recherche</h3>
+					<p class="pt-4">{{ user.username }}</p>
+				</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+	{% endif %}
+{% endblock %}

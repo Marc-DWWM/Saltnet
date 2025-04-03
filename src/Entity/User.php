@@ -79,23 +79,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user_message')]
     private Collection $messages;
 
-    /**
-     * @var Collection<int, Follower>
-     */
-    #[ORM\OneToMany(targetEntity: Follower::class, mappedBy: 'user_follower')]
-    private Collection $followers;
 
     /**
      * @var Collection<int, Notification>
      */
     #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'user_notification')]
     private Collection $notifications;
-
-    /**
-     * @var Collection<int, File>
-     */
-    #[ORM\OneToMany(targetEntity: File::class, mappedBy: 'user_file')]
-    private Collection $files;
 
     /**
      * @var Collection<int, Report>
@@ -155,9 +144,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->messages = new ArrayCollection();
-        $this->followers = new ArrayCollection();
         $this->notifications = new ArrayCollection();
-        $this->files = new ArrayCollection();
         $this->reports = new ArrayCollection();
         $this->groups = new ArrayCollection();
         $this->reposts = new ArrayCollection();
@@ -337,35 +324,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Follower>
-     */
-    public function getFollowers(): Collection
-    {
-        return $this->followers;
-    }
-
-    public function addFollower(Follower $follower): static
-    {
-        if (!$this->followers->contains($follower)) {
-            $this->followers->add($follower);
-            $follower->setUserFollower($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFollower(Follower $follower): static
-    {
-        if ($this->followers->removeElement($follower)) {
-            // set the owning side to null (unless already changed)
-            if ($follower->getUserFollower() === $this) {
-                $follower->setUserFollower(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Notification>
@@ -397,35 +355,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, File>
-     */
-    public function getFiles(): Collection
-    {
-        return $this->files;
-    }
-
-    public function addFile(File $file): static
-    {
-        if (!$this->files->contains($file)) {
-            $this->files->add($file);
-            $file->setUserFile($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFile(File $file): static
-    {
-        if ($this->files->removeElement($file)) {
-            // set the owning side to null (unless already changed)
-            if ($file->getUserFile() === $this) {
-                $file->setUserFile(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Report>

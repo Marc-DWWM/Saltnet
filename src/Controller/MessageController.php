@@ -31,6 +31,10 @@ final class MessageController extends AbstractController
     #[Route('/converation', name: 'conversation')]
     public function send(Request $request, EntityManagerInterface $em): Response
     {
+
+        $user = $this->getUser();
+        $receiverMessage = $em->getRepository(Message::class)->findBy(['receiver' => $user]);
+        $userMessage = $em->getRepository(Message::class)->findBy(['user_message' => $user]);
         $message = new Message;
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
@@ -50,6 +54,8 @@ final class MessageController extends AbstractController
 
         return $this->render('message/conversation.html.twig', [
             'form' => $form->createView(),
+            'receiverMessage' => $receiverMessage,
+            'user_message' => $userMessage,
         ]);
     }
 }
