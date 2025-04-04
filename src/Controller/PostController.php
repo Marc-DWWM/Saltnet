@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+
 
 #[Route('/post')]
 final class PostController extends AbstractController
@@ -106,8 +108,8 @@ final class PostController extends AbstractController
     #[Route('/{id}/delete', name: 'app_post_delete', methods: ['POST'])]
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager, PostRepository $postRepository): Response
     {
-        if (!$this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
-            throw $this->createAccessDeniedException('Token CSRF invalide');
+        if (!$this->isCsrfTokenValid('delete' . $post->getId(), $request->request->getString('_token'))) {
+            throw new BadRequestHttpException('This token is invalid');
         }
 
         $user = $this->getUser();
@@ -118,7 +120,6 @@ final class PostController extends AbstractController
         }
 
 
-        //je supprime également le post originel
         $entityManager->remove($post);
         $entityManager->flush();
 
@@ -131,22 +132,22 @@ final class PostController extends AbstractController
     {
         $user = $this->getUser();
 
-        // Vérifier si l'utilisateur a déjà reposté ce post
-        $existRepost = $entityManager->getRepository(Repost::class)->findOneBy([
+        //je vérifié si l'utilisateur a bien repost ce post
+        $Repost = $entityManager->getRepository(Repost::class)->findOneBy([
             'originalPost' => $post,
             'userRepost' => $user,
         ]);
 
-        // Si le repost existe déjà, il faut le dissocier
-        if ($existRepost) {
-            $entityManager->remove($existRepost);
+        //si déja repost dérepost le post
+        if ($Repost) {
+            $entityManager->remove($Repost);
             $entityManager->flush();
 
             $this->addFlash('success', 'Vous avez déjà supprimé ce repost');
         }
-        // Si le repost n'existe pas, en créer un nouveau
+        // si repost inexistant le créer
         else {
-            // Créer une nouvelle instance de Repost
+           
             $repost = new Repost();
             $repost->setOriginalPost($post);
             $repost->setUserRepost($user);
