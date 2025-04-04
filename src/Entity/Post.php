@@ -35,7 +35,7 @@ class Post
     /**
      * @var Collection<int, Like>
      */
-    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'post_like')]
+    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'post_like',  cascade: ['remove'])]
     private Collection $likes;
 
     /**

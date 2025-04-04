@@ -11,11 +11,22 @@
 	</div>
 	<div class="mt-4 flex flex-col justify-center items-center text-[#E0E0E0]">
 		<h2 class="pb-2">Ajouter une image</h2>
-		{{ form_start(pictureProfil) }}
-		{{ form_row(pictureProfil.picture) }}
+		<div class=" flex flex-col justify-center items-center">
+			{{ form_start(pictureProfil) }}
+			{{ form_row(pictureProfil.picture) }}
+		</div>
 		<h3 class="pb-2">Modifier username</h3>
 		{{ form_row(pictureProfil.username) }}
 		<button type="submit" class="mt-6 w-24 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full">Valider</button>
 		{{ form_end(pictureProfil) }}
+	</div>
+	<div class="mt-4 flex flex-col justify-center items-center text-[#E0E0E0]">
+		<h4 class="pb-2">Supprimer son compte</h4>
+		<form method="POST" action="{{ path('profile_delete_user', { 'id': user.id }) }}">
+			  <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+			<button class="mt-4 w-24 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full" type="submit">
+				Supprimer
+			</button>
+		</form>
 	</div>
 {% endblock %}

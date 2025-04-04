@@ -37,10 +37,12 @@ final class PostController extends AbstractController
         $user = $this->getUser();
         $post = new Post();
         $post->setUserPost($user);
+        
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -59,12 +61,15 @@ final class PostController extends AbstractController
         $comment = new Comment();
         $commentForm = $this->createForm(CommentType::class, $comment);
         $commentForm->handleRequest($request);
+
         $page = $request->query->getInt('page', 1);
         $limit = 10;
         $posts = $postRepository->paginatePosts($page, $limit);
         $maxPage = ceil($posts->count() / $limit);
 
+
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+
             $comment->setPostComment($post);
             $comment->setUserComment($this->getUser());
             $comment->setCreatedAt(new \DateTimeImmutable());

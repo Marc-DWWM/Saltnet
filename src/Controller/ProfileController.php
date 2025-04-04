@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Repost;
+
+use App\Entity\User;
 use App\Form\PictureProfileType;
 use App\Repository\RepostRepository;
 use App\Repository\PostRepository;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 
 #[Route('/profil', name: 'profile_')]
@@ -53,7 +55,7 @@ final class ProfileController extends AbstractController
         $limit = 10;
         $posts = $postRepository->paginatePosts($page, $limit);
         $maxPage = ceil($posts->count() / $limit);
-    
+
         return $this->render('profile/reposts.html.twig', [
             'posts' => $posts,
             'reposts' => $reposts,
@@ -61,7 +63,7 @@ final class ProfileController extends AbstractController
             'page' => $page,
         ]);
     }
-    
+
     #[Route('/modifier', name: 'modifier')]
     public function uploadPicture(
         Request $request,
@@ -101,5 +103,21 @@ final class ProfileController extends AbstractController
             'pictureProfil' => $form->createView(),
             'user' => $user,
         ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete_user', methods: ['POST'])]
+    public function DeleteUser(Request $request, User $user, EntityManagerInterface $em, TokenStorageInterface $tokenStorage): Response
+    {
+        if ($this->isCsrfTokenValid('delete'. $user->getId(), $request->getPayload()->getString('_token'))) {
+
+            $em->remove($user);
+            $em->flush();
+
+            $this->addFlash('sup', 'Votre compte a bien été supprimée');
+        }
+
+        $this->$tokenStorage->setToken(null);
+        $request->getSession()->invalidate();
+        return $this->redirectToRoute('logout');
     }
 }

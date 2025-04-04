@@ -23,7 +23,7 @@ class PictureProfileType extends AbstractType
             ])
 
             ->add('picture', Filetype::class, [
-                'label' => 'Photo de profil(jpg file)',
+                'label' => 'Photo de profil(webp file)',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -32,7 +32,7 @@ class PictureProfileType extends AbstractType
                         'mimeTypes' => [
                             'image/webp',
                         ],
-                        'mimeTypesMessage' => 'Veuillez télécharger un fichier jpg valide',
+                        'mimeTypesMessage' => 'Veuillez télécharger un fichier webp valide',
                     ])
                 ],
                 'attr' => [

@@ -17,10 +17,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
-    #[ORM\OneToMany(mappedBy: 'user_message', targetEntity: Message::class)]
+    #[ORM\OneToMany(mappedBy: 'user_message', targetEntity: Message::class, cascade: ['remove'])]
     private Collection $sentMessages;
 
-    #[ORM\OneToMany(mappedBy: 'receiver', targetEntity: Message::class)]
+    #[ORM\OneToMany(mappedBy: 'receiver', targetEntity: Message::class, cascade: ['remove'])]
     private Collection $receivedMessages;
 
 
@@ -58,25 +58,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Post>
      */
-    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'user_post')]
+    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'user_post', cascade: ['remove'])]
     private Collection $posts;
 
     /**
      * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user_comment')]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user_comment', cascade: ['remove'])]
     private Collection $comments;
 
     /**
      * @var Collection<int, Like>
      */
-    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'user_like')]
+    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'user_like', cascade: ['remove'])]
     private Collection $likes;
 
     /**
      * @var Collection<int, Message>
      */
-    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user_message')]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user_message', cascade: ['remove'])]
     private Collection $messages;
 
 
@@ -89,7 +89,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Report>
      */
-    #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'user_report')]
+    #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'user_report', cascade: ['remove'])]
     private Collection $reports;
 
     /**
@@ -101,7 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Repost>
      */
-    #[ORM\OneToMany(targetEntity: Repost::class, mappedBy: 'userRepost')]
+    #[ORM\OneToMany(targetEntity: Repost::class, mappedBy: 'userRepost', cascade: ['remove'])]
     private Collection $reposts;
 
     public function getId(): ?int

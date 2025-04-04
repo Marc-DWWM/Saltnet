@@ -28,22 +28,20 @@
 
 		<footer>
 			{% block footer %}
+
 				<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-[#21213B] text-white p-4 shadow-lg z-50" style="display: none;">
-					<div>
-						<p class="text-center text-[12px]">En vous inscrivant, vous acceptez les Conditions d’utilisation et de la Politique de confidentialité, notamment l’utilisation des cookies.</p>
-						<div class="flex justify-center items-center">
-							<button onclick="accepterCookies()" class="mt-2 w-32 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full">J'accepte</button>
-						</div>
+					<p class="text-center text-[12px]">En vous inscrivant, vous acceptez les Conditions d’utilisation et de la Politique de confidentialité, notamment l’utilisation des cookies.</p>
+					<div class="flex justify-center items-center">
+						<button onclick="accepterCookies()" class="mt-2 w-32 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full">J'accepte</button>
 					</div>
 				</div>
+
 			{% endblock %}
-		</footer>
+		</body>
+	</body>
+</html></footer>{% block javascripts %}{% endblock %}<script>
 
-		{% block javascripts %}{% endblock %}
-
-		<script>
-
-			function accepterCookies() {
+function accepterCookies() {
 localStorage.setItem('cookie_consent', 'true');
 document.getElementById('cookie-banner').style.display = 'none';
 }
@@ -53,7 +51,4 @@ if (!localStorage.getItem('cookie_consent')) {
 document.getElementById('cookie-banner').style.display = 'block';
 } else {
 document.getElementById('cookie-banner').style.display = 'none';
-}
-		</script>
-	</body>
-</html>
+}</script></body></html>
