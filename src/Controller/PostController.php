@@ -121,7 +121,7 @@ final class PostController extends AbstractController
 
         //vérifie que c'est bien l'utilisateur du post qui veut le supprimé
         if ($post->getUserPost() !== $user) {
-            throw $this->createAccessDeniedException("Vous n'êtes pas l'utilisateur de ce post.");
+            throw $this->createAccessDeniedException("Vous n'êtes pas l'utilisateur de ce post");
         }
 
 

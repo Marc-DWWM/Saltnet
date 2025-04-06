@@ -21,7 +21,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'text-white bg-[#21213B] placeholder:text-[12px] text-center rounded-full border-1 border-[#FF1B1C]',
+                    'class' => 'text-white bg-[#21213B] placeholder:text-[12px] placeholder:md:text-[16px] placeholder:lg:text-[18px] text-center rounded-full border-1 border-[#FF1B1C] md:w-96 lg:w-[400px] py-2 px-4',
                     'placeholder' => 'Email',
                 ],
                 'label' => false,
@@ -29,7 +29,7 @@ class RegistrationFormType extends AbstractType
             //Ajout de username pour que l'utilisateur puisse choisir un nom personalisée pour naviguer sur le réseau social.
             ->add('username', TextType::class, [
                 'attr' => [
-                    'class' => 'text-white bg-[#21213B] placeholder:text-[12px] text-center rounded-full border-1 border-[#FF1B1C]',
+                    'class' => 'text-white bg-[#21213B] placeholder:text-[12px] placeholder:md:text-[16px] placeholder:lg:text-[18px] text-center rounded-full border-1 border-[#FF1B1C] md:w-96 lg:w-[400px] py-2 px-4',
                     'placeholder' => 'Nom d\'utilisateur',
                 ],
                 'label' => false,
@@ -50,7 +50,7 @@ class RegistrationFormType extends AbstractType
                 'first_options' => [
                     'label' => false,
                     'attr' => [
-                        'class' => 'text-white bg-[#21213B] placeholder:text-[12px] text-center rounded-full border-1 border-[#FF1B1C]',
+                        'class' => 'text-white bg-[#21213B] placeholder:text-[12px] placeholder:md:text-[16px] placeholder:lg:text-[18px] text-center rounded-full border-1 border-[#FF1B1C] md:w-96 lg:w-[400px] py-2 px-4',
                         'placeholder' => 'Mot de passe',
                         'autocomplete' => 'new-password',
                     ],
@@ -58,7 +58,7 @@ class RegistrationFormType extends AbstractType
                 'second_options' => [
                     'label' => false,
                     'attr' => [
-                        'class' => 'text-white bg-[#21213B] placeholder:text-[12px] text-center rounded-full border-1 border-[#FF1B1C]',
+                        'class' => 'text-white bg-[#21213B] placeholder:text-[12px] placeholder:md:text-[16px] placeholder:lg:text-[18px] text-center rounded-full border-1 border-[#FF1B1C] md:w-96 lg:w-[400px] py-2 px-4',
                         'placeholder' => 'Confirmez le mot de passe',
                         'autocomplete' => 'new-password',
                     ],

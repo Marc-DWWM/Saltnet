@@ -1,22 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password
-{% endblock %}
+{% block title %}Reset your password{% endblock %}
 
 {% block body %}
 	{% for flash_error in app.flashes('reset_password_error') %}
 		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
 	{% endfor %}
 	<div class="flex flex-col items-center space-y-4">
-		<img src="{{ asset('images/logo-mobile.jpg') }}" alt="Logo mobile">
-		<h1 class="text-[15px] pl-14 pr-14 pb-5 text-center">Ajoute ton grain de sel… ou verse la salière entière.</h1>
-		<h2 class="text-[30px] pb-8 pl-12 pr-12 text-center">Rechercher votre compte</h2>
+		<img src="{{ asset('images/logo-mobile.jpg') }}" alt="Logo mobile" class="max-w-xs md:max-w-md lg:max-w-lg">
+		<h1 class="text-[15px] pl-14 pr-14 pb-5 text-center md:text-[20px] lg:text-[30px] font-semibold">Ajoute ton grain de sel… ou verse la salière entière.</h1>
+		<h2 class="text-[30px] pb-8 pl-12 pr-12 text-center md:text-[40px] lg:text-[50px]">Rechercher votre compte</h2>
 	</div>
 
 	{{ form_start(requestForm) }}
 	<div class="flex flex-col items-center space-y-4">
 		{{ form_row(requestForm.email) }}
-		<button class="w-24 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full mt-6">Envoyer</button>
+		<button class="w-24 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] md:text-[16px] lg:text-[18px] text-center py-1 rounded-full mt-6 md:w-32 lg:w-40" type="submit" aria-label="Envoyer la demande de réinitialisation">Envoyer</button>
 	</div>
 	{{ form_end(requestForm) }}
 {% endblock %}

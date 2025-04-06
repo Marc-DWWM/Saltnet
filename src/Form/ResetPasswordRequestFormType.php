@@ -14,19 +14,19 @@ class ResetPasswordRequestFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'attr' => ['autocomplete' => 'email'],
+                'attr' => [
+                    'autocomplete' => 'email',
+                    'class' => 'text-white bg-[#21213B] placeholder:text-[12px] placeholder:md:text-[16px] placeholder:lg:text-[18px] text-center rounded-full border-1 border-[#FF1B1C] md:w-96 lg:w-[400px] py-2 px-4 mx-auto',
+                    'placeholder' => 'Email',
+                    'aria-label' => 'Adresse e-mail pour réinitialisation de mot de passe',
+                ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez entrez un email',
-                    ]),
+                        'message' => 'Veuillez entrer un email',
+                    ])
                 ],
                 'label' => false,
-                    'attr' => [
-                        'class' => 'text-white bg-[#21213B] placeholder:text-[12px] text-center rounded-full border-1 border-[#FF1B1C]',
-                        'placeholder' => 'Email',
-                    ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
