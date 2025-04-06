@@ -108,7 +108,7 @@ final class ProfileController extends AbstractController
     #[Route('/delete/{id}', name: 'delete_user', methods: ['POST'])]
     public function DeleteUser(Request $request, User $user, EntityManagerInterface $em, TokenStorageInterface $tokenStorage): Response
     {
-        if ($this->isCsrfTokenValid('delete'. $user->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->getPayload()->getString('_token'))) {
 
             $em->remove($user);
             $em->flush();
