@@ -1,61 +1,29 @@
-{% extends 'base.html.twig' %}
+{% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block body %}
-	<div class="container mx-auto p-4">
-		<div class="mb-6 flex items-center justify-center gap-4 px-4 md:px-12">
-		<a href="{{ path('home') }}" aria-label="Retour à l'accueil">
-			<svg class="svg-post" xmlns="http://www.w3.org/2000/svg" height="32" width="28" viewbox="0 0 448 512">
-				<path fill="#e0e0e0" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H109.2l105.7-105.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L9.4 233.4z"/>
-			</svg>
-		</a>
-		<h1 class="text-lg md:text-2xl text-center w-full">Tableau de bord</h1>
-	</div>
-
-		<div class="card shadow-lg rounded-lg overflow-hidden">
-			<div class="card-header bg-[#21213B] text-white py-4 px-6">
-				<h3 class="text-xl font-medium">Liste des Utilisateurs</h3>
-			</div>
-			<div class="card-body bg-[#21213B] p-6">
-				<div class="flex flex-col space-y-4">
-					{% for user in users %}
-						<div class="flex flex-col justify-center items-center border-t border-gray-100 py-3 px-4 md:flex-row md:items-start md:justify-between">
-							<div class="w-full text-sm text-white p-2 md:w-[150px]" aria-label="ID de l'utilisateur">
-								<p class="underline">ID</p>
-								{{ user.id }}
-							</div>
-							<div class="w-full text-sm text-white p-2 md:w-[150px]" aria-label="Nom d'utilisateur">
-								<p class="underline">Username</p>
-								{{ user.username }}
-							</div>
-							<div class="w-full text-sm text-white p-2 md:w-[150px]" aria-label="Email de l'utilisateur">
-								<p class="underline">Email</p>
-								{{ user.email }}
-							</div>
-							<div class="w-full text-sm text-white p-2 md:w-[150px]" aria-label="Rôles de l'utilisateur">
-								<p class="underline">Rôles</p>
-								{{ user.roles|join(', ') }}
-							</div>
-							<div class="w-full text-sm text-white p-2 md:w-[150px]" aria-label="Date de création de l'utilisateur">
-								<p class="underline">Date de création</p>
-								{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : 'Non défini' }}
-							</div>
-							<div class="w-full md:w-[150px] mt-4 md:mt-0">
-								<form action="{{ path('admin_user_delete', {'id': user.id}) }}" method="POST">
-									<input type="hidden" name="_method" value="DELETE">
-									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-									<button type="submit" aria-label="Supprimer compte" class="w-28 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-sm text-center py-2 rounded-full">
-										Supprimer
-									</button>
-								</form>
-							</div>
-						</div>
-					{% else %}
-						<div class="flex border-t border-gray-100 py-3 px-4">
-							<div class="w-full text-sm text-gray-500 text-center" aria-label="Aucun utilisateur trouvé">Aucun utilisateur trouvé</div>
-						</div>
-					{% endfor %}
-				</div>
-			</div>
-		</div>
-	</div>
+{% block content %}
+    <div class="container mt-4">
+        <h1>Tableau de bord</h1>
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Utilisateurs</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Nombre total d'utilisateurs : {{ userCount }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Signalements</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Nombre total de signalements : {{ reportCount }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
