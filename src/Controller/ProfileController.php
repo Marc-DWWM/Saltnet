@@ -108,16 +108,38 @@ final class ProfileController extends AbstractController
     #[Route('/delete/{id}', name: 'delete_user', methods: ['POST'])]
     public function DeleteUser(Request $request, User $user, EntityManagerInterface $em, TokenStorageInterface $tokenStorage): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+
+            foreach ($user->getReposts() as $repost) {
+
+                $em->remove($repost);
+            }
+
+            foreach ($user->getLikes() as $like) {
+
+                $em->remove($like);
+            }
+
+
+            foreach ($user->getPosts() as $post) {
+
+                foreach ($post->getReposts() as $repost) {
+
+                    $em->remove($repost);
+                }
+
+                $em->remove($post);
+            }
 
             $em->remove($user);
             $em->flush();
 
-            $this->addFlash('sup', 'Votre compte a bien été supprimée');
+            $this->addFlash('sup', 'Votre compte a bien été supprimé');
         }
 
-        $this->$tokenStorage->setToken(null);
+        $tokenStorage->setToken(null);
         $request->getSession()->invalidate();
+
         return $this->redirectToRoute('logout');
     }
 }

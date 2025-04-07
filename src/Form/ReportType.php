@@ -21,22 +21,24 @@ class ReportType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('reason_reporting', TextareaType::class, [
-            'label' => false,
-            'required' => true,
-            'attr' => [
-                'placeholder' => "écrire la raison du signalement(haine...)",
-                'class' => 'p-4 bg-[#21213B] text-white text-[12px] placeholder:text-[12px] rounded-t-xl rounded-b-xl',
-            ]
-        ])
-        ->add('user_report', EntityType::class, [
-            'class' => User::class,
-            'label' => false,
-            'required' => true,
-            'attr' => [
-                'class' => 'p-4 bg-[#21213B] text-white text-[12px] placeholder:text-[12px] rounded-t-xl rounded-b-xl',
-            ]
-        ]);
+            ->add('reason_reporting', TextareaType::class, [
+                'label' => false,
+                'required' => true,
+                'attr' => [
+                    'placeholder' => "écrire la raison du signalement(haine...)",
+                    'class' => 'w-full p-4 bg-[#21213B] text-white text-[14px] sm:text-[16px] md:text-[18px] placeholder:text-[14px] sm:placeholder:text-[16px] md:placeholder:text-[18px] rounded-t-xl rounded-b-xl resize-none focus:outline-none focus:ring-2 focus:ring-[#FF1B1C]',
+                    'aria-label' => 'Sélectionnez le type de problème',
+                ]
+            ])
+            ->add('user_report', EntityType::class, [
+                'class' => User::class,
+                'label' => false,
+                'required' => true,
+                'attr' => [
+                    'class' => 'w-full p-4 bg-[#21213B] text-white text-[14px] sm:text-[16px] md:text-[18px] rounded-t-xl rounded-b-xl',
+                    'aria-label' => 'Nom de l’utilisateur à signaler',
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

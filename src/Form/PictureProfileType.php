@@ -17,12 +17,13 @@ class PictureProfileType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'attr' => [
-                    'class' => 'text-white bg-[#21213B] placeholder:text-[12px] text-center rounded-full border-1 border-[#FF1B1C]',
+                    'class' => 'text-white bg-[#21213B] placeholder:text-[12px] placeholder:md:text-[16px] placeholder:lg:text-[18px] text-center rounded-full border-1 border-[#FF1B1C] md:w-96 lg:w-[400px] py-2 px-4',
+                    'aria-label' => 'Nom d’utilisateur',
                 ],
                 'label' => false,
             ])
 
-            ->add('picture', Filetype::class, [
+            ->add('picture', FileType::class, [
                 'label' => 'Photo de profil(webp file)',
                 'mapped' => false,
                 'required' => false,
@@ -37,6 +38,7 @@ class PictureProfileType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'mt-4 mb-4 flex flex-col justify-center items-center',
+                    'aria-label' => 'Image de profil',
                 ],
             ]);
     }

@@ -3,42 +3,46 @@
 {% endblock %}
 
 {% block body %}
-	<nav class="flex justify-between p-4 border-1 border-t-[#FF1B1C]" id="top">
-		<a href="{{ path('home') }}" class="nav-svg">
-			<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 576 512" class="w-[30px]"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ff1b1c" d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
+	<nav class="flex justify-between p-4 border-1 border-b-[#FF1B1C]" id="top" aria-label="Barre de navigation principale">
+		<a href="{{ path('home') }}" class="nav-svg" aria-label="Page d'accueil">
+			<svg xmlns="http://www.w3.org/2000/svg" height="32" width="36" viewbox="0 0 576 512"><path fill="#ff1b1c" d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
 		</a>
-		<a href="{{ path('search') }}" class="nav-svg">
-			<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" class="w-[30px]"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ff1b1c" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+		<a href="{{ path('search') }}" class="nav-svg" aria-label="Rechercher">
+			<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512">
+				<path fill="#ff1b1c" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+			</svg>
 		</a>
-		<a href="#" class="nav-svg">
-			<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512" class="w-[37px]"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ff1b1c" d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192l42.7 0c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0L21.3 320C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7l42.7 0C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3l-213.3 0zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352l117.3 0C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7l-330.7 0c-14.7 0-26.7-11.9-26.7-26.7z"/></svg>
+		<a href="#" class="nav-svg" aria-label="Notifications">
+			<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512">
+				<path fill="#ff1b1c" d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192l42.7 0c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0L21.3 320C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7l42.7 0C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3l-213.3 0zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352l117.3 0C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7l-330.7 0c-14.7 0-26.7-11.9-26.7-26.7z"/>
+			</svg>
 		</a>
-		<a href="#" class="nav-svg">
-			<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="w-[30px]"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ff1b1c" d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/></svg>
-		</a>
-		<a href="{{ path('messages') }}" class="nav-svg">
-			<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" class="w-[30px]"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ff1b1c" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+		<a href="{{ path('messages') }}" class="nav-svg" aria-label="Messages">
+			<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512">
+				<path fill="#ff1b1c" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L48 176z"/>
+			</svg>
 		</a>
 	</nav>
 
 	<div>
-		<div class="flex flex-col justify-center items-center">
-
+		<div class="flex flex-col justify-center items-center md:space-x-0 md:text-center md:mx-auto">
 			{% if app.user is not null %}
-				{% if app.user.photo is not null and app.user.photo|length > 0 %}
-					<img class="img-profile" src="{{ asset('uploads/' ~ app.user.photo) }}" alt="Photo de profil">
-				{% else %}
-					<p>Aucune photo de profil.</p>
-				{% endif %}
-				<p>Username :
-					{{ app.user.username }}</p>
+				<div class="flex flex-col items-center">
+					{% if app.user.photo is not null and app.user.photo|length > 0 %}
+						<img class="img-profile w-32 h-32 md:w-40 md:h-40 rounded-full" src="{{ asset('uploads/' ~ app.user.photo) }}" alt="Photo de profil de {{ app.user.username }}" aria-label="Photo de profil de {{ app.user.username }}">
+					{% else %}
+						<p>Aucune photo de profil.</p>
+					{% endif %}
+					<p class="pb-4 text-[12]">Username :
+						{{ app.user.username }}</p>
+				</div>
 			{% else %}
 				<p>Veuillez vous connecter pour voir votre profil.</p>
 			{% endif %}
 
-			<a class="w-24 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full" href="{{ path('profile_modifier') }}">Modifier le profil</a>
-			<div class="flex">
-				<a href="{{ path('profile_index') }}" class="profil-index pt-2 border-b-2 border-b-[#E0E0E0]">Posts</a>
+			<a class="w-24 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] md:text-[16px] lg:text-[18px] text-center py-1 rounded-full mt-4 md:w-32 lg:w-40" href="{{ path('profile_modifier') }}" aria-label="Modifier le profil de {{ app.user.username }}">Modifier le profil</a>
+			<div class="flex mt-4 justify-center">
+				<a href="{{ path('profile_index') }}" class="profil-index pt-2 border-b-2 border-b-[#E0E0E0]" aria-label="Voir les posts de {{ app.user.username }}">Posts</a>
 				<p class="pt-2 pl-2 border-b-2 border-b-[#E0E0E0]">Reposts</p>
 			</div>
 		</div>
@@ -47,10 +51,10 @@
 			{% if app.user and repost.userRepost == app.user %}
 
 				<div class="pt-4 pb-4 flex flex-col justify-center items-center">
-					<p class="w-75 flex">
+					<p class="w-75 flex lg:w-100">
 						<svg class="" xmlns="http://www.w3.org/2000/svg" height="14" width="15.75" viewbox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#e0e0e0" d="M272 416c17.7 0 32-14.3 32-32s-14.3-32-32-32l-112 0c-17.7 0-32-14.3-32-32l0-128 32 0c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-64-64c-12.5-12.5-32.8-12.5-45.3 0l-64 64c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8l32 0 0 128c0 53 43 96 96 96l112 0zM304 96c-17.7 0-32 14.3-32 32s14.3 32 32 32l112 0c17.7 0 32 14.3 32 32l0 128-32 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l64 64c12.5 12.5 32.8 12.5 45.3 0l64-64c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8l-32 0 0-128c0-53-43-96-96-96L304 96z"/></svg>
 						Vous avez reposté</p>
-					<div class="w-75 pl-2 color-post pt-2 pb-1 flex justify-between items-center space-x-4 rounded-t-xl">
+					<div class="w-75 lg:w-100 pl-2 color-post pt-2 pb-1 flex justify-between items-center space-x-4 rounded-t-xl">
 						<img class="img-post" src="{{ asset('uploads/' ~ repost.originalPost.userPost.photo) }}" alt="Photo de {{ repost.userRepost.username }}" class="user-photo">
 						{% if app.user and repost.userRepost == app.user %}
 							<a href="{{ path('messages') }}" class="svg-post pr-2">
@@ -58,22 +62,22 @@
 							</a>
 						{% endif %}
 					</div>
-					<h4 class="w-75 pl-2 pb-2 color-post border-b-2 border-b-[#E0E0E0]">
+					<h4 class="w-75 lg:w-100 pl-2 pb-2 color-post border-b-2 border-b-[#E0E0E0]">
 						{{ repost.originalPost.userPost }}
 					</h4>
-					<p class="h-50 pt-4 pl-1 color-post w-75 h-25">
+					<p class="h-50 lg:w-100 pt-4 pl-1 color-post w-75 h-25">
 						{{ repost.originalPost.post }}
 					</p>
 
-					<div class="mb-4 pb-1 pl-2 w-75 color-post flex justify-between rounded-b-xl">
-						<a href="{{ path('app_post_show', {'id': repost.originalPost.id}) }}">
+					<div class="mb-4 pb-1 w-75 lg:w-100 color-post flex justify-between rounded-b-xl md:pb-4 items-center">
+						<a href="{{ path('app_post_show', {'id': repost.originalPost.id}) }}" class="svg-post" aria-label="Voir le post">
 							<svg class="svg-post" xmlns="http://www.w3.org/2000/svg" height="24" width="27" viewbox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#e0e0e0" d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z"/></svg>
 						</a>
-						<a href="{{ path('app_post_repost', {'id': repost.originalPost.id}) }}">
+						<a href="{{ path('app_post_repost', {'id': repost.originalPost.id}) }}" class="svg-post" aria-label="Reposter le post">
 							<svg class="svg-post" xmlns="http://www.w3.org/2000/svg" height="24" width="27" viewbox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#e0e0e0" d="M272 416c17.7 0 32-14.3 32-32s-14.3-32-32-32l-112 0c-17.7 0-32-14.3-32-32l0-128 32 0c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-64-64c-12.5-12.5-32.8-12.5-45.3 0l-64 64c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8l32 0 0 128c0 53 43 96 96 96l112 0zM304 96c-17.7 0-32 14.3-32 32s14.3 32 32 32l112 0c17.7 0 32 14.3 32 32l0 128-32 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l64 64c12.5 12.5 32.8 12.5 45.3 0l64-64c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8l-32 0 0-128c0-53-43-96-96-96L304 96z"/></svg>
 						</a>
-						<div class="color-post">{{ repost.originalPost.createdAt|date('d/m/Y H:i') }}</div>
-						<a href="{{ path('report') }}" class="pr-2 color-post">
+						<div class="color-post lg:pb-6">{{ repost.originalPost.createdAt|date('d/m/Y H:i') }}</div>
+						<a href="{{ path('report') }}" class="pr-2 color-post" aria-label="Signaler ce post">
 							<svg class="svg-post" xmlns="http://www.w3.org/2000/svg" height="24" width="21" viewbox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#e0e0e0" d="M48 24C48 10.7 37.3 0 24 0S0 10.7 0 24L0 64 0 350.5 0 400l0 88c0 13.3 10.7 24 24 24s24-10.7 24-24l0-100 80.3-20.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30l0-279.7c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L48 52l0-28zm0 77.5l96.6-24.2c27-6.7 55.5-3.6 80.4 8.8c54.9 27.4 118.7 29.7 175 6.8l0 241.8-24.4 9.1c-33.7 12.6-71.2 10.7-103.4-5.4c-48.2-24.1-103.3-30.1-155.6-17.1L48 338.5l0-237z"/></svg>
 						</a>
 					</div>

@@ -25,8 +25,8 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'Email',
                 ],
                 'label' => false,
-            ])
-            //Ajout de username pour que l'utilisateur puisse choisir un nom personalisée pour naviguer sur le réseau social.
+            ]) 
+
             ->add('username', TextType::class, [
                 'attr' => [
                     'class' => 'text-white bg-[#21213B] placeholder:text-[12px] placeholder:md:text-[16px] placeholder:lg:text-[18px] text-center rounded-full border-1 border-[#FF1B1C] md:w-96 lg:w-[400px] py-2 px-4',

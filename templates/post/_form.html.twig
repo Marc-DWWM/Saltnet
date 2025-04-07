@@ -1,4 +1,9 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="ml-8 mt-4 mb-4 w-24 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full">{{ button_label|default('Save') }}</button>
+{{ form_widget(form) }}
+
+<div class="flex justify-center">
+	<button type="submit" class="mt-2 w-20 sm:w-32 md:w-40 lg:w-48 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] sm:text-[14px] md:text-[16px] text-center py-2 rounded-full">
+		{{ button_label|default('Mettre à jour') }}
+	</button>
+</div>
 {{ form_end(form) }}

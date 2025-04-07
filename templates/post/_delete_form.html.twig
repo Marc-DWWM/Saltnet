@@ -1,4 +1,9 @@
 <form method="post" action="{{ path('app_post_delete', {'id': post.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
-    <button class="mt-4 w-24 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] text-center py-1 rounded-full">Supprimer</button>
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+
+	<div class="flex justify-center">
+		<button type="submit" aria-label="Supprimer le post" class="mt-2 w-20 sm:w-32 md:w-40 lg:w-48 bg-[#FF1B1C] opacity-75 hover:opacity-100 text-white text-[12px] sm:text-[14px] md:text-[16px] text-center py-2 rounded-full">
+			Supprimer
+		</button>
+	</div>
 </form>
