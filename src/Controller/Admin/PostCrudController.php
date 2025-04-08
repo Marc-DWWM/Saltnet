@@ -19,7 +19,6 @@ class PostCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
             AssociationField::new('user_post')
                 ->setFormTypeOptions(['choice_label' => 'username']),
             TextField::new('post'),
