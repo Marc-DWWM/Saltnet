@@ -31,13 +31,14 @@ final class PostController extends AbstractController
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 
+    // création de nouveau post
     #[Route('/new', name: 'app_post_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository): Response
     {
         $user = $this->getUser();
         $post = new Post();
         $post->setUserPost($user);
-        
+
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
@@ -55,6 +56,7 @@ final class PostController extends AbstractController
         ]);
     }
 
+    // fonctionnalité pour voir les posts et les commentaires avec formulaire de création de commentaire
     #[Route('/{id}', name: 'app_post_show', methods: ['GET', 'POST'])]
     public function show(Post $post, Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository): Response
     {
@@ -88,12 +90,10 @@ final class PostController extends AbstractController
         ]);
     }
 
+    // fonctionnalités pour modifier un post
     #[Route('/{id}/edit', name: 'app_post_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
-        if ($post->getUserPost() !== $this->getUser()) {
-            throw $this->createAccessDeniedException("Vous n'êtes pas l'auteur de ce post");
-        }
 
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -109,19 +109,12 @@ final class PostController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    // fonctionnalités de suppresion de post
     #[Route('/{id}/delete', name: 'app_post_delete', methods: ['POST'])]
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager, PostRepository $postRepository): Response
     {
         if (!$this->isCsrfTokenValid('delete' . $post->getId(), $request->request->getString('_token'))) {
             throw new BadRequestHttpException('This token is invalid');
-        }
-
-        $user = $this->getUser();
-
-        //vérifie que c'est bien l'utilisateur du post qui veut le supprimé
-        if ($post->getUserPost() !== $user) {
-            throw $this->createAccessDeniedException("Vous n'êtes pas l'utilisateur de ce post");
         }
 
 
@@ -131,7 +124,7 @@ final class PostController extends AbstractController
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 
-
+    // ici on fait les reposts ou on enleve le repost si déja fait sur le post
     #[Route('/{id}/repost', name: 'app_post_repost', methods: ['GET'])]
     public function repost(EntityManagerInterface $entityManager, Post $post): Response
     {
@@ -152,7 +145,7 @@ final class PostController extends AbstractController
         }
         // si repost inexistant le créer
         else {
-           
+
             $repost = new Repost();
             $repost->setOriginalPost($post);
             $repost->setUserRepost($user);

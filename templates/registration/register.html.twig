@@ -9,7 +9,7 @@
         <h2 class="text-[30px] pb-8 md:text-[40px] lg:text-[50px]">Inscrivez-vous</h2>
     </div>
 
-    {% form_theme registrationForm _self %}
+    
 
     {% block form_errors %}{% endblock %}
     {{ form_start(registrationForm, { attr: { id: 'registrationForm' } }) }}
@@ -45,7 +45,7 @@
 			form.addEventListener("submit", function (e) {
 				let isValid = true;
 
-				// Validation du mot de passe
+				// validation du mot de passe
 				if (!passwordRegex.test(passwordField.value)) {
 					passwordError.textContent = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
 					passwordError.classList.remove("hidden");
@@ -55,7 +55,7 @@
 					passwordError.classList.add("hidden");
 				}
 
-				// Validation de la confirmation du mot de passe
+				// validation de la confirmation du mot de passe
 				if (confirmPasswordField.value !== passwordField.value) {
 					confirmPasswordError.textContent = "Les mots de passe doivent être identiques.";
 					confirmPasswordError.classList.remove("hidden");
